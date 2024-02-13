@@ -1,0 +1,18 @@
+{
+    "name": "Basic Survey",
+    "description": "Basic Survey",
+    "spec": [
+      {
+        "question_description": "Website test message prompt",
+        "min": 0,
+        "default": "",
+        "max": 128,
+        "required": true,
+        "choices": "",
+        "new_question": true,
+        "variable": "iis_test_message",
+        "question_name": "Please enter a test message for your new website",
+        "type": "text"
+      }
+    ]
+  }
