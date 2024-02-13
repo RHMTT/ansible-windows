@@ -20,7 +20,7 @@
       scm_delete_on_update: 'no'
       scm_type: git
       scm_update_on_launch: 'yes'
-      scm_url: https://github.com/ansible/tower-example.git
+      scm_url: https://github.com/RHMTT/ansible-windows.git
 
 #  - name: Update Project
 
