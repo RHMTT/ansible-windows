@@ -1,0 +1,39 @@
+---
+- name: playbook to setup controller
+  hosts: localhost
+  tasks:
+  - name: Create Windows Credential
+    infra.controller_configuration.controller_credentials:
+      name: Windows Credential
+      description: Machine Windows Credential
+      credential_type: Machine
+      inputs:
+        username: administrator
+        password: "{{ workshop_machine_credential_password }}"
+        become_method: runas
+
+  - name: Create Windows Playbook Project
+    infra.controller_configuration.controller_projects:
+      name: Ansible Workshop Project
+      organization: Default
+      scm_clean: 'no'
+      scm_delete_on_update: 'no'
+      scm_type: git
+      scm_update_on_launch: 'yes'
+      scm_url: https://github.com/ansible/tower-example.git
+
+#  - name: Update Project
+
+  - name: create IIS install job template
+    infra.controller_configuration.controller_templates:
+      name: IIS Basic Job Template
+      job_type: run
+      inventory: Workshop Inventory
+      execution_environment: windows workshop execution environment
+      survey_enabled: true
+      survey: "{{ lookup('template', 'template_surveys/basic_survey.json') | regex_replace('\\n', '') }}"
+      project: Ansible Workshop Project
+      playbook: install_iis.yml
+      credentials:
+        - Windows Credential
+
