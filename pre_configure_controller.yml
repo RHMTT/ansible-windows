@@ -38,7 +38,9 @@
       scm_update_on_launch: 'yes'
       scm_url: https://github.com/RHMTT/ansible-windows.git
 
-#  - name: Update Project
+  - name: Update Project
+    ansible.controller.project_update:
+      project: "Ansible Workshop Project"
 
   - name: create IIS install job template
     ansible.controller.job_template:
@@ -73,6 +75,46 @@
       execution_environment: windows workshop execution environment
       project: Ansible Workshop Project
       playbook: uninstall_iis.yml
+      limit: windows
+      use_fact_cache: true
+      credentials:
+        - Windows Credential
+
+  - name: create IIS Advanced install job template
+    ansible.controller.job_template:
+      controller_host: https://ansible-1.d2kgs.sandbox2074.opentlc.com
+      controller_username: admin
+      controller_password: MjM4MTM3_1
+      validate_certs: false
+      name: IIS Advanced
+      job_type: run
+      organization: "Default"
+      inventory: Workshop Inventory
+      execution_environment: windows workshop execution environment
+      survey_enabled: true
+      survey_spec: "{{ lookup('template', 'template_surveys/basic_survey.json') | regex_replace('\\n', '') }}"
+      project: Ansible Workshop Project
+      playbook: iis_advanced/site.yml
+      limit: windows
+      use_fact_cache: true
+      credentials:
+        - Windows Credential
+
+  - name: create Windows Patching job template
+    ansible.controller.job_template:
+      controller_host: https://ansible-1.d2kgs.sandbox2074.opentlc.com
+      controller_username: admin
+      controller_password: MjM4MTM3_1
+      validate_certs: false
+      name: Windows Patching
+      job_type: run
+      organization: "Default"
+      inventory: Workshop Inventory
+      execution_environment: windows workshop execution environment
+      survey_enabled: true
+      survey_spec: "{{ lookup('template', 'template_surveys/win_update_survey.json') | regex_replace('\\n', '') }}"
+      project: Ansible Workshop Project
+      playbook: win_updates/site.yml
       limit: windows
       use_fact_cache: true
       credentials:

@@ -1,0 +1,31 @@
+{
+    "name": "Win Update Survey",
+    "description": "Win Update Survey",
+    "spec": [
+      {
+        "question_description": "If the server needs to reboot, then do so after install",
+        "min": 0,
+        "default": "Yes",
+        "max": 0,
+        "required": true,
+        "choices": "Yes\nNo",
+        "new_question": true,
+        "variable": "reboot_server",
+        "question_name": "Reboot after install?",
+        "type": "multiplechoice"
+      },
+      {
+        "question_description": "Which Categories to install?	",
+        "min": 0,
+        "default": "CriticalUpdates\nSecurityUpdates",
+        "max": 0,
+        "required": true,
+        "choices": "Application\nConnectors\nCriticalUpdates\nDefinitionUpdate\nDeveloperKits\nFeaturePacks Guidance\nSecurityUpdates\nServicePacks\nTools\nUpdateRollups\nUpdates",
+        "new_question": true,
+        "variable": "categories",
+        "question_name": "Categories",
+        "type": "multiselect"
+      }
+    ]
+  }
+
